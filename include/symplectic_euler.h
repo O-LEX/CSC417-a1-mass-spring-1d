@@ -10,5 +10,13 @@
 
 template<typename FORCE> 
 inline void symplectic_euler(Eigen::VectorXd &q, Eigen::VectorXd &qdot, double dt, double mass,  FORCE &force) {
+    Eigen::VectorXd f(q.size());
+    force(f, q, qdot);
 
+    // 加速度を計算
+    Eigen::VectorXd acceleration = f / mass;
+
+    // 速度と位置を更新
+    qdot += acceleration * dt;
+    q += qdot * dt;
 }
