@@ -18,8 +18,6 @@ inline void forward_euler(Eigen::VectorXd &q, Eigen::VectorXd &qdot, double dt, 
     // 加速度を計算
     Eigen::VectorXd acceleration = f / mass;
 
-    // 速度と位置を更新
-    Eigen::VectorXd temp = qdot;
+    q += qdot * dt;
     qdot += acceleration * dt;
-    q += temp * dt;
 }
